@@ -1,8 +1,18 @@
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  font-size: 20px; /* Grundschriftgröße */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff; /* außerhalb immer weiß */
+  overscroll-behavior: none; /* verhindert grünes „Ziehen“ */
 }
+#app {
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 
 h1 {
   font-size: 32px; /* Titelgröße */
