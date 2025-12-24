@@ -1,3 +1,13 @@
+/*Klasse für den Service Worker (in den DevTools unter Application → Service Workers zu sehen)
+einfach wieder auskommentieren und speichern, um den Service Worker zu aktivieren.*/
+
+
+
+
+
+
+
+
 const CACHE_NAME = 'angel-app-v2';
 
 self.addEventListener('install', event => {
@@ -22,3 +32,7 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
+
+
+

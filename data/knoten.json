@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Clinchknoten",
+    "Knotenfestigkeit": "hoch",
+    "verwendung": "Wirbel, Ösen, Kunstköder",
+    "anleitung": "1. Schritt die Schnur durch die Öse/den Wirbel etc führen 2. Schritt die Schnur entlang der Hauptschnur wickeln 3. Schritt das Ende der gewickelten Schnur durch das entstandene Auge führen 4. Schritt den Knoten festziehen",
+    "info": "Der Clinchknoten ist ein sehr beliebter und vielseitiger Knoten zum Befestigen von Haken, Wirbeln und anderen Anbauteilen an der Angelschnur. Er ist einfach zu binden und bietet eine hohe Festigkeit."
+  },
+  {
+    "name": "Grinner-Knoten",
+    "Knotenfestigkeit": "hoch bis sehr hoch",
+    "verwendung": "Wirbel, Ösen, Kunstköder, Ringe, Haken",
+    "anleitung": "1. Schritt die Schnur durch die Öse führen 2. Schritt die Schnur entlang der Hauptschnur führen 3. das Ende an den Anfang zurück führen und um beide Teile der Schnur wickeln 4. Schritt festziehen",
+    "info": "Der Grinner-Knoten, auch als Uni-Knoten bekannt, ist ein vielseitiger Knoten, der sich hervorragend zum Befestigen von Haken, Wirbeln und anderen Anbauteilen eignet. Er ist einfach zu binden und bietet eine hohe Festigkeit."
+  },
+  {
+    "name": "Schlaufenknoten",
+    "Knotenfestigkeit": "niedrig bis hoch",
+    "verwendung": "Zum Erstellen einer stabilen Schlaufe am Ende einer Schnur",
+    "anleitung": "1. Schritt eine doppelte Schlaufe in die Schnur legen. 2. Schritt den Knick der Schnur um die Hauptschnur und das Ende entlang führen und wickeln. 3. Schritt die beiden Richtungen festziehen.",
+    "info": "Der Schlaufenknoten ist ein vielseitiger Knoten, der verwendet wird, um eine feste Schlaufe am Ende einer Angelschnur zu erstellen. Diese Schlaufe kann zum Befestigen von Wirbeln, Haken oder anderen Anbauteilen genutzt werden. Der Knoten ist einfach zu binden und bietet eine gute Festigkeit."
+  },
+  {
+    "name": "Achterknoten",
+    "Knotenfestigkeit": "Stopperknoten",
+    "verwendung": "Zum Verhindern, dass die Schnur durch eine Öse oder einen Ring rutscht",
+    "anleitung": "1. Eine Schlaufe in die Schnur legen. 2. Das Ende der Schnur um die stehende Leine führen. 3. Das Ende durch die Schlaufe ziehen und festziehen."
+  }
+]

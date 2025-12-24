@@ -1,7 +1,356 @@
+
 [
   {
+    "name": "Bachneunauge",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Donau-Neunauge",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Flussneunauge",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Meerneunauge",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Ammersee-Kaulbarsch",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Atlantischer Lachs",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Balkan-Goldsteinbeißer",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Bitterling",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Donaukaulbarsch",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Donau-Steinbeißer",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Donaustromgründling",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Frauennerfling",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Karausche",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Kilch (Ammersee)",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Kilch (Bodensee)",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Maifisch",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Meerforelle",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Nordseeschnäpel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Perlfisch",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Schlammpeitzger",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Schneider",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Schrätzer",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Sichling",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Steinbeißer",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Steingressling",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Sterlet",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Stichling (9-stachlig)",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Stör",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Streber",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Strömer",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Zingel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Zobel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Zope",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+
+  {
+    "name": "Aal",
+    "schonzeit": "01.10. – 31.12.",
+    "mindestmass": "50 cm"
+  },
+  {
+    "name": "Äsche",
+    "schonzeit": "01.01. – 30.04.",
+    "mindestmass": "35 cm"
+  },
+  {
+    "name": "Bachforelle",
+    "schonzeit": "01.10. – 15.03.",
+    "mindestmass": "26 cm"
+  },
+  {
+    "name": "Barbe",
+    "schonzeit": "01.05. – 30.06.",
+    "mindestmass": "40 cm"
+  },
+  {
+    "name": "Elritze",
+    "schonzeit": "01.05. – 30.06.",
+    "mindestmass": "–"
+  },
+  {
     "name": "Hecht",
-    "schonzeit": "01.02 – 30.04",
-    "mindestmass": "45 cm"
+    "schonzeit": "15.02. – 30.04.",
+    "mindestmass": "50 cm"
+  },
+  {
+    "name": "Huchen",
+    "schonzeit": "15.02. – 30.06.",
+    "mindestmass": "90 cm"
+  },
+  {
+    "name": "Karpfen",
+    "schonzeit": "–",
+    "mindestmass": "35 cm"
+  },
+  {
+    "name": "Regenbogenforelle",
+    "schonzeit": "15.12. – 15.03.",
+    "mindestmass": "26 cm"
+  },
+  {
+    "name": "Renken / Felchen",
+    "schonzeit": "15.10. – 31.12.",
+    "mindestmass": "30 cm"
+  },
+  {
+    "name": "Zander",
+    "schonzeit": "15.02. – 30.04.",
+    "mindestmass": "50 cm"
+  },
+  {
+    "name": "Aitel / Döbel",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Bachsaibling",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Brachse",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Flussbarsch",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Giebel",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Gründling",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Güster",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Kaulbarsch",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Laube",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Moderlieschen",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Rotauge",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Rotfeder",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Schmerle",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Stichling (3-stachlig)",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Wels",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Zährte / Seerüssling",
+    "schonzeit": "–",
+    "mindestmass": "–"
+  },
+
+  {
+    "name": "Edelkrebs (männlich)",
+    "schonzeit": "–",
+    "mindestmass": "12 cm"
+  },
+  {
+    "name": "Edelkrebs (weiblich)",
+    "schonzeit": "01.10. – 31.07.",
+    "mindestmass": "12 cm"
+  },
+  {
+    "name": "Steinkrebs",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+
+  {
+    "name": "Abgeplattete Teichmuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Flussperlmuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Gemeine Teichmuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Große Flussmuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Große Teichmuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Kleine Flussmuschel / Bachmuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
+  },
+  {
+    "name": "Malermuschel",
+    "schonzeit": "ganzjährig",
+    "mindestmass": "–"
   }
 ]

@@ -2,17 +2,53 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Angel App</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🎣 Angel App</h1>
+<!-- Splash-Screen -->
+<div id="splash">
+  <h1>🎣 Angel App</h1>
+</div>
 
-<button onclick="showFische()">🐟 Fische</button>
+<!-- Haupt-App -->
+<div id="app" style="display:none;">
 
-<div id="content"></div>
+  <!-- Überschrift -->
+  <h1>🎣 Angel App</h1>
+
+  <!-- Navigationsbuttons -->
+  <button class="fische-btn" onclick="showFische()">🐟 Fische</button>
+  <button class="knoten-btn" onclick="showKnoten()">🪢 Knoten</button>
+
+
+
+  <!-- Suchfeld -->
+<div id="search">
+  <input
+    type="text"
+    id="search-input"
+    placeholder="🔍 Fisch suchen..."
+    oninput="applySearch()"
+  >
+</div>
+
+
+  <!-- Filterbereich (nur für Fische sichtbar) -->
+  <div id="filter" style="display:none;">
+    <h2>Filter</h2>
+    <label><input type="checkbox" id="filter-schonzeit"> Schonzeit vorhanden</label>
+    <label><input type="checkbox" id="filter-mindestmass"> Mindestmaß vorhanden</label>
+    <button class="filter-btn" onclick="applyFilter()">Filter anwenden</button>
+  </div>
+
+  <!-- Contentbereich für Fische oder Knoten -->
+  <div id="content"></div>
+
+</div>
 
 <script src="app.js"></script>
 </body>

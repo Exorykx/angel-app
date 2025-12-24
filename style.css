@@ -1,15 +1,188 @@
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
+  font-size: 20px; /* Grundschriftgröße */
 }
 
+h1 {
+  font-size: 32px; /* Titelgröße */
+  text-align: center;
+}
+
+/* Standard Button-Stil */
 button {
-  padding: 10px;
-  margin: 5px;
+  padding: 15px 25px; /* größerer Button */
+  font-size: 20px;    /* Text im Button */
+  margin: 10px;
+  border-radius: 10px; /* abgerundete Ecken */
+  border: none;
+  cursor: pointer;
+  color: white;
 }
 
+/* Fische-Button */
+.fische-btn {
+  background-color: #2ba1d3; 
+}
+
+.fische-btn:hover {
+  background-color: #2ba1d3; 
+}
+
+/* Knoten-Button */
+.knoten-btn {
+  background-color: #158dc0; 
+}
+
+.knoten-btn:hover {
+  background-color: #158dc0; 
+}
+
+.knoten-title {
+  cursor: pointer;
+}
+
+.knoten-title:hover {
+  text-decoration: none;
+}
+
+
+
+/* Filter-Button */
+.filter-btn {
+  background-color: #6e65ed; /* gewünschte Farbe */
+  color: white;
+}
+
+.filter-btn:hover {
+  background-color: #554fc2; /* dunkler beim Hover */
+}
+
+#filter {
+  transition: all 0.3s ease;
+}
+/* ---------- Karten-Design ---------- */
+
+#content {
+  margin-top: 20px;
+}
+
+/* Grundkarte */
 .card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Leichter „App-Touch“ beim Antippen */
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Titel (Fisch- oder Knotenname) */
+.card h3 {
+  margin: 0 0 8px 0;
+  font-size: 22px;
+  color: #2ba1d3;
+}
+
+/* Text innerhalb der Karte */
+.card p {
+  margin: 4px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Zusatzinfos (aufklappbar) */
+.extra-info {
+  display: none;
+  margin-top: 12px;
+  padding: 12px;
+  background: #f4f7f9;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+/* Klickbarer Titel */
+.fish-title {
+  cursor: pointer;
+}
+
+.fish-title:hover {
+  text-decoration: none;
+}
+/* ---------- Status-Badges ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.badge-ok {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-warning {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+#splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2ba1d3; /* Hauptfarbe */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  font-size: 36px;
+  z-index: 9999; /* immer oben */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+#splash h1 {
+  animation: pulse 1s ease-in-out infinite;
+}
+.card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+#search {
+  margin: 15px 0;
+}
+
+#search-input {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  border-radius: 12px;
   border: 1px solid #ccc;
-  padding: 10px;
-  margin-top: 10px;
+  outline: none;
+}
+
+#search-input:focus {
+  border-color: #2ba1d3;
 }
