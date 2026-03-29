@@ -1,187 +1,334 @@
-// ----------------------
-// Splash-Screen
-window.addEventListener('load', async () => {
-  setTimeout(() => {
-    const splash = document.getElementById('splash');
-    splash.style.opacity = 0;
+const state = {
+  mode: 'fische',
+  fische: [],
+  knoten: [],
+  expandedCard: null
+};
 
-    setTimeout(() => {
-      splash.style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-    }, 500);
-  }, 1000);
-});
+const textFixes = new Map([
+  ['Ã¤', 'ä'],
+  ['Ã„', 'Ä'],
+  ['Ã¶', 'ö'],
+  ['Ã–', 'Ö'],
+  ['Ã¼', 'ü'],
+  ['Ãœ', 'Ü'],
+  ['ÃŸ', 'ß'],
+  ['â€“', '–'],
+  ['â€”', '—'],
+  ['â€ž', '„'],
+  ['â€œ', '“'],
+  ['â€"', '”'],
+  ['â€š', '‚'],
+  ['â€˜', '‘'],
+  ['â€™', '’'],
+  ['â€¦', '…'],
+  ['ðŸŽ£', '🎣'],
+  ['ðŸŸ', '🐟'],
+  ['ðŸª¢', '🪢'],
+  ['ðŸ”', '🔍'],
+  ['âŒ', '❌']
+]);
 
-// ----------------------
-// Globaler Status
-let aktuellerModus = 'fische';
-let alleFische = [];
-let alleKnoten = [];
+const ui = {
+  app: document.getElementById('app'),
+  splash: document.getElementById('splash'),
+  content: document.getElementById('content'),
+  filter: document.getElementById('filter'),
+  searchInput: document.getElementById('search-input'),
+  resultsSummary: document.getElementById('results-summary'),
+  statusMessage: document.getElementById('status-message'),
+  filterSchonzeit: document.getElementById('filter-schonzeit'),
+  filterMindestmass: document.getElementById('filter-mindestmass'),
+  modeButtons: [...document.querySelectorAll('.mode-button')]
+};
 
-// ----------------------
-// Daten laden
+window.addEventListener('DOMContentLoaded', init);
+
+async function init() {
+  bindEvents();
+
+  try {
+    await Promise.all([loadFische(), loadKnoten()]);
+    switchMode('fische');
+  } catch (error) {
+    showStatus('Die Daten konnten nicht geladen werden. Bitte versuche es erneut.');
+    console.error(error);
+  } finally {
+    revealApp();
+  }
+
+  registerServiceWorker();
+}
+
+function bindEvents() {
+  ui.modeButtons.forEach(button => {
+    button.addEventListener('click', () => switchMode(button.dataset.mode));
+  });
+
+  ui.searchInput.addEventListener('input', renderCurrentView);
+  ui.filterSchonzeit.addEventListener('change', renderCurrentView);
+  ui.filterMindestmass.addEventListener('change', renderCurrentView);
+  ui.content.addEventListener('click', handleCardToggle);
+}
+
+function revealApp() {
+  window.setTimeout(() => {
+    ui.splash.classList.add('is-hidden');
+    ui.app.classList.remove('hidden');
+  }, 500);
+}
+
 async function loadFische() {
-  const res = await fetch('./data/fische.json');
-  alleFische = await res.json();
+  const response = await fetch('./data/fische.json');
+
+  if (!response.ok) {
+    throw new Error(`fische.json konnte nicht geladen werden (${response.status})`);
+  }
+
+  const data = await response.json();
+  state.fische = data.map(item => sanitizeEntry(item));
 }
 
 async function loadKnoten() {
-  const res = await fetch('./data/knoten.json');
-  alleKnoten = await res.json();
-}
+  const response = await fetch('./data/knoten.json');
 
-// ----------------------
-// Navigation
-async function showFische() {
-  aktuellerModus = 'fische';
-
-  document.getElementById('filter').style.display = 'block';
-  document.getElementById('search-input').placeholder = '🔍 Fisch suchen...';
-
-  if (alleFische.length === 0) {
-    await loadFische();
+  if (!response.ok) {
+    throw new Error(`knoten.json konnte nicht geladen werden (${response.status})`);
   }
 
-  applySearch();
+  const data = await response.json();
+  state.knoten = data.map(item => sanitizeEntry(item));
 }
 
-async function showKnoten() {
-  aktuellerModus = 'knoten';
+function sanitizeEntry(entry) {
+  return Object.fromEntries(
+    Object.entries(entry).map(([key, value]) => {
+      if (typeof value !== 'string') {
+        return [key, value];
+      }
 
-  document.getElementById('filter').style.display = 'none';
-  document.getElementById('search-input').placeholder = '🔍 Knoten suchen...';
-
-  if (alleKnoten.length === 0) {
-    await loadKnoten();
-  }
-
-  applySearch();
+      return [key, normalizeText(value)];
+    })
+  );
 }
 
-// ----------------------
-// Suche (für beide)
-function applySearch() {
-  const suchtext = document
-    .getElementById('search-input')
-    .value
-    .toLowerCase();
+function normalizeText(value) {
+  let nextValue = value;
 
-  if (aktuellerModus === 'fische') {
-    applyFilter(suchtext);
-  } else {
-    const gefiltert = alleKnoten.filter(knoten =>
-      knoten.name.toLowerCase().includes(suchtext)
-    );
-    displayKnoten(gefiltert);
-  }
-}
-
-// ----------------------
-// Filter (NUR Fische)
-function applyFilter(suchtext = '') {
-  const filterSchonzeit =
-    document.getElementById('filter-schonzeit').checked;
-  const filterMindest =
-    document.getElementById('filter-mindestmass').checked;
-
-  const gefiltert = alleFische.filter(fisch => {
-    let passt = true;
-
-    if (suchtext) {
-      passt = fisch.name.toLowerCase().includes(suchtext);
-    }
-
-    if (filterSchonzeit) {
-      passt = passt && fisch.schonzeit !== '–';
-    }
-
-    if (filterMindest) {
-      passt = passt && fisch.mindestmass !== '–';
-    }
-
-    return passt;
+  textFixes.forEach((replacement, broken) => {
+    nextValue = nextValue.replaceAll(broken, replacement);
   });
 
-  displayFische(gefiltert);
+  return nextValue;
 }
 
-// ----------------------
-// Anzeige Fische
-function displayFische(fische) {
-  const content = document.getElementById('content');
-  content.innerHTML = '';
+function switchMode(mode) {
+  state.mode = mode;
+  state.expandedCard = null;
 
-  if (fische.length === 0) {
-    content.innerHTML = '<p>❌ Keine Fische gefunden.</p>';
+  const isFische = mode === 'fische';
+  ui.filter.hidden = !isFische;
+  ui.searchInput.placeholder = isFische ? 'Fisch suchen...' : 'Knoten suchen...';
+
+  ui.modeButtons.forEach(button => {
+    const active = button.dataset.mode === mode;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-selected', String(active));
+  });
+
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  clearStatus();
+
+  const searchTerm = ui.searchInput.value.trim().toLowerCase();
+  const items = state.mode === 'fische' ? getFilteredFische(searchTerm) : getFilteredKnoten(searchTerm);
+
+  ui.resultsSummary.textContent = createResultsCopy(items.length);
+
+  if (items.length === 0) {
+    ui.content.innerHTML = `
+      <article class="empty-state">
+        <h2>Keine Treffer</h2>
+        <p>Probiere einen anderen Suchbegriff oder passe die Filter an.</p>
+      </article>
+    `;
     return;
   }
 
-  fische.forEach((fisch, index) => {
-    // Variable definieren
-    const hatSchonzeit = fisch.schonzeit !== '–';
+  ui.content.innerHTML = items.map(item => createCardMarkup(item)).join('');
+}
 
-    content.innerHTML += `
-      <div class="card fish-card" onclick="toggleInfo(${index})">
-        <h3>${fisch.name}</h3>
-        
-        <!-- Badge -->
-        <span class="badge ${hatSchonzeit ? 'badge-warning' : 'badge-ok'}">
-          ${hatSchonzeit ? 'Schonzeit beachten' : 'Keine Schonzeit'}
-        </span>
+function getFilteredFische(searchTerm) {
+  return state.fische.filter(fisch => {
+    const matchesSearch = !searchTerm || fisch.name.toLowerCase().includes(searchTerm);
+    const hasSchonzeit = hasValue(fisch.schonzeit);
+    const hasMindestmass = hasValue(fisch.mindestmass);
 
-        <p>Schonzeit: ${fisch.schonzeit}</p>
-        <p>Mindestmaß: ${fisch.mindestmass}</p>
+    if (!matchesSearch) {
+      return false;
+    }
 
-        <div class="extra-info" id="info-${index}">
-          <p>${fisch.info || 'Keine zusätzlichen Informationen vorhanden.'}</p>
-        </div>
-      </div>
-    `;
+    if (ui.filterSchonzeit.checked && !hasSchonzeit) {
+      return false;
+    }
+
+    if (ui.filterMindestmass.checked && !hasMindestmass) {
+      return false;
+    }
+
+    return true;
   });
 }
 
+function getFilteredKnoten(searchTerm) {
+  return state.knoten.filter(knoten => {
+    const haystack = [
+      knoten.name,
+      knoten.verwendung,
+      knoten.anleitung,
+      knoten.info
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
 
-// ----------------------
-// Anzeige Knoten
-function displayKnoten(knoten) {
-  const content = document.getElementById('content');
-  content.innerHTML = '';
+    return !searchTerm || haystack.includes(searchTerm);
+  });
+}
 
-  if (knoten.length === 0) {
-    content.innerHTML = '<p>❌ Keine Knoten gefunden.</p>';
+function hasValue(value) {
+  return Boolean(value) && value !== '–' && value !== '-';
+}
+
+function createResultsCopy(count) {
+  const label = state.mode === 'fische' ? 'Fische' : 'Knoten';
+  return `${count} ${label} gefunden`;
+}
+
+function createCardMarkup(item) {
+  if (state.mode === 'fische') {
+    return createFishCard(item);
+  }
+
+  return createKnotenCard(item);
+}
+
+function createFishCard(fisch) {
+  const id = createCardId(fisch.name);
+  const expanded = state.expandedCard === id;
+  const hasSchonzeit = hasValue(fisch.schonzeit);
+  const info = fisch.info || 'Keine zusätzlichen Informationen vorhanden.';
+
+  return `
+    <article class="card fish-card ${expanded ? 'is-expanded' : ''}">
+      <button class="card-toggle" type="button" data-card-id="${escapeAttribute(id)}" aria-expanded="${expanded}">
+        <div class="card-head">
+          <div>
+            <p class="card-kicker">Fischart</p>
+            <h2>${escapeHtml(fisch.name)}</h2>
+          </div>
+          <span class="badge ${hasSchonzeit ? 'badge-warning' : 'badge-ok'}">
+            ${hasSchonzeit ? 'Schonzeit beachten' : 'Keine Schonzeit'}
+          </span>
+        </div>
+        <dl class="facts-grid">
+          <div>
+            <dt>Schonzeit</dt>
+            <dd>${escapeHtml(fisch.schonzeit)}</dd>
+          </div>
+          <div>
+            <dt>Mindestmaß</dt>
+            <dd>${escapeHtml(fisch.mindestmass)}</dd>
+          </div>
+        </dl>
+        <div class="extra-info" ${expanded ? '' : 'hidden'}>
+          <p>${escapeHtml(info)}</p>
+        </div>
+      </button>
+    </article>
+  `;
+}
+
+function createKnotenCard(knoten) {
+  const id = createCardId(knoten.name);
+  const expanded = state.expandedCard === id;
+  const info = knoten.info || 'Keine zusätzlichen Informationen vorhanden.';
+
+  return `
+    <article class="card knoten-card ${expanded ? 'is-expanded' : ''}">
+      <button class="card-toggle" type="button" data-card-id="${escapeAttribute(id)}" aria-expanded="${expanded}">
+        <div class="card-head">
+          <div>
+            <p class="card-kicker">Knoten</p>
+            <h2>${escapeHtml(knoten.name)}</h2>
+          </div>
+          <span class="strength-pill">${escapeHtml(knoten.Knotenfestigkeit || 'ohne Angabe')}</span>
+        </div>
+        <dl class="facts-grid">
+          <div>
+            <dt>Verwendung</dt>
+            <dd>${escapeHtml(knoten.verwendung || 'Keine Angabe')}</dd>
+          </div>
+          <div>
+            <dt>Anleitung</dt>
+            <dd>${escapeHtml(knoten.anleitung || 'Keine Angabe')}</dd>
+          </div>
+        </dl>
+        <div class="extra-info" ${expanded ? '' : 'hidden'}>
+          <p>${escapeHtml(info)}</p>
+        </div>
+      </button>
+    </article>
+  `;
+}
+
+function createCardId(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
+function handleCardToggle(event) {
+  const button = event.target.closest('[data-card-id]');
+
+  if (!button) {
     return;
   }
 
-  knoten.forEach((k, index) => {
-    content.innerHTML += `
-      <div class="card knoten-card" onclick="toggleKnotenInfo(${index})">
-        <h3>${k.name}</h3>
-        <p>Knotenfestigkeit: ${k.Knotenfestigkeit}</p>
-        <p>Verwendung: ${k.verwendung}</p>
-        <p>Anleitung: ${k.anleitung}</p>
+  const { cardId } = button.dataset;
+  state.expandedCard = state.expandedCard === cardId ? null : cardId;
+  renderCurrentView();
+}
 
-        <div class="extra-info" id="knoten-info-${index}">
-          <p>${k.info || 'Keine zusätzlichen Informationen vorhanden.'}</p>
-        </div>
-      </div>
-    `;
+function showStatus(message) {
+  ui.statusMessage.textContent = message;
+  ui.statusMessage.classList.remove('hidden');
+}
+
+function clearStatus() {
+  ui.statusMessage.textContent = '';
+  ui.statusMessage.classList.add('hidden');
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) {
+    return;
+  }
+
+  navigator.serviceWorker.register('./service-worker.js').catch(error => {
+    console.error('Service Worker konnte nicht registriert werden:', error);
   });
-}
-
-// ----------------------
-// Toggle Infos
-function toggleInfo(index) {
-  const el = document.getElementById(`info-${index}`);
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
-}
-
-function toggleKnotenInfo(index) {
-  const el = document.getElementById(`knoten-info-${index}`);
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
-}
-
-// ----------------------
-// Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js');
 }

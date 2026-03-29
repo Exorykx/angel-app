@@ -3,53 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0c6d8f">
   <title>Angel App</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- Splash-Screen -->
-<div id="splash">
-  <h1>🎣 Angel App</h1>
-</div>
-
-<!-- Haupt-App -->
-<div id="app" style="display:none;">
-
-  <!-- Überschrift -->
-  <h1>🎣 Angel App</h1>
-
-  <!-- Navigationsbuttons -->
-  <button class="fische-btn" onclick="showFische()">🐟 Fische</button>
-  <button class="knoten-btn" onclick="showKnoten()">🪢 Knoten</button>
-
-
-
-  <!-- Suchfeld -->
-<div id="search">
-  <input
-    type="text"
-    id="search-input"
-    placeholder="🔍 Fisch suchen..."
-    oninput="applySearch()"
-  >
-</div>
-
-
-  <!-- Filterbereich (nur für Fische sichtbar) -->
-  <div id="filter" style="display:none;">
-    <h2>Filter</h2>
-    <label><input type="checkbox" id="filter-schonzeit"> Schonzeit vorhanden</label>
-    <label><input type="checkbox" id="filter-mindestmass"> Mindestmaß vorhanden</label>
-    <button class="filter-btn" onclick="applyFilter()">Filter anwenden</button>
+  <div id="splash" aria-hidden="true">
+    <div class="splash-inner">
+      <p class="splash-kicker">Offline dabei am Wasser</p>
+      <h1>Angel App</h1>
+    </div>
   </div>
 
-  <!-- Contentbereich für Fische oder Knoten -->
-  <div id="content"></div>
+  <div id="app" class="app-shell hidden">
+    <header class="hero">
+      <p class="eyebrow">Dein kompakter Begleiter</p>
+      <h1>Fische, Knoten und Regeln schnell griffbereit</h1>
+      <p class="hero-copy">
+        Suche Arten, prüfe Schonzeiten und finde passende Knoten in einer aufgeräumten mobilen Ansicht.
+      </p>
+    </header>
 
-</div>
+    <main class="panel">
+      <section class="toolbar" aria-label="Inhaltsauswahl">
+        <div class="mode-switch" role="tablist" aria-label="Bereiche">
+          <button type="button" class="mode-button is-active" data-mode="fische" aria-selected="true">
+            Fische
+          </button>
+          <button type="button" class="mode-button" data-mode="knoten" aria-selected="false">
+            Knoten
+          </button>
+        </div>
 
-<script src="app.js"></script>
+        <div class="search-wrap">
+          <label class="sr-only" for="search-input">Suche</label>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Fisch suchen..."
+            autocomplete="off"
+          >
+        </div>
+
+        <section id="filter" class="filters" aria-label="Filter">
+          <label class="filter-chip">
+            <input type="checkbox" id="filter-schonzeit">
+            <span>Schonzeit vorhanden</span>
+          </label>
+          <label class="filter-chip">
+            <input type="checkbox" id="filter-mindestmass">
+            <span>Mindestmaß vorhanden</span>
+          </label>
+        </section>
+
+        <div class="results-bar">
+          <p id="results-summary" class="results-summary">Lade Daten...</p>
+        </div>
+      </section>
+
+      <section id="content" class="cards" aria-live="polite"></section>
+      <p id="status-message" class="status-message hidden" role="status"></p>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
